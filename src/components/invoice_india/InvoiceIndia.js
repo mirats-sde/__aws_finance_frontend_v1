@@ -137,7 +137,7 @@ const InvoiceIndia = () => {
     axios
       .put(
         `https://finance.miratsoneservices.com/api/update-invoice/${decryptText(
-          invoiceNumber
+          invoiceID
         )}`,
         {
           status: "canceled",
