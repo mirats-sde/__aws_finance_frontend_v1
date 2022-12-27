@@ -367,10 +367,10 @@ const InternationalInvoice = () => {
                         id=""
                         required
                       >
-                        <option value="INR">INR</option>
-                        <option value="USD">USD</option>
-                        <option value="EUR">EUR</option>
-                        <option value="POUND">POUND</option>
+                        <option value="INR-₹">INR</option>
+                        <option value="USD-$">USD</option>
+                        <option value="EUR-€">EUR</option>
+                        <option value="POUND-£">POUND</option>
                       </select>
                       <span>{invoiceData?.currency_type}</span>
                     </section>

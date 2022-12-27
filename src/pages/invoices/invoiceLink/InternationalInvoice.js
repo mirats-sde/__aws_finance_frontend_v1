@@ -209,11 +209,22 @@ const InternationalInvoice = () => {
                           </div>
                         </td>
                         <td className={styles.center}>
-                          ${""}
+                          {elm?.currency_type
+                            ? elm?.currency_type?.includes("-")
+                              ? elm?.currency_type?.split("-")[1]
+                              : elm?.currency_type
+                            : "$"}{" "}
                           {ord?.rate}
                         </td>
                         <td className={styles.center}>{ord?.quantity}</td>
-                        <td className={styles.center}>$ {ord?.amount}</td>
+                        <td className={styles.center}>
+                          {elm?.currency_type
+                            ? elm?.currency_type?.includes("-")
+                              ? elm?.currency_type?.split("-")[1]
+                              : elm?.currency_type
+                            : "$"}{" "}
+                          {ord?.amount}
+                        </td>
                       </tr>
                     ))}
                     <tr>
@@ -227,7 +238,11 @@ const InternationalInvoice = () => {
                         )}
                       </td>
                       <td className={styles.align_bold}>
-                        ${" "}
+                        {elm?.currency_type
+                          ? elm?.currency_type?.includes("-")
+                            ? elm?.currency_type?.split("-")[1]
+                            : elm?.currency_type
+                          : "$"}{" "}
                         {Number(
                           elm?.orders?.reduce(
                             (acc, curr) => (acc += Number(curr?.amount)),
@@ -265,7 +280,12 @@ const InternationalInvoice = () => {
                             className={styles.right}
                             style={{ textAlign: "center" }}
                           >
-                            $ {elm?.total_amount}
+                            {elm?.currency_type
+                              ? elm?.currency_type?.includes("-")
+                                ? elm?.currency_type?.split("-")[1]
+                                : elm?.currency_type
+                              : "$"}{" "}
+                            {elm?.total_amount}
                           </td>
                         </tr>
                         <tr>
@@ -277,7 +297,12 @@ const InternationalInvoice = () => {
                             className={styles.right_bold}
                             style={{ textAlign: "center" }}
                           >
-                            $ {elm?.total_amount}
+                            {elm?.currency_type
+                              ? elm?.currency_type?.includes("-")
+                                ? elm?.currency_type?.split("-")[1]
+                                : elm?.currency_type
+                              : "$"}{" "}
+                            {elm?.total_amount}
                           </td>
                         </tr>
                         <tr>
@@ -289,7 +314,12 @@ const InternationalInvoice = () => {
                               {toWords.convert(
                                 elm?.total_amount ? elm?.total_amount : 0
                               )}{" "}
-                              Dollars Only
+                              {elm?.currency_type
+                                ? elm?.currency_type?.includes("-")
+                                  ? elm?.currency_type?.split("-")[0]
+                                  : elm?.currency_type
+                                : "$"}{" "}
+                              Only
                             </span>
                           </td>
                         </tr>

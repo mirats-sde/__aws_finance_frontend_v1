@@ -408,12 +408,24 @@ const InvoiceInternational = () => {
                                 <p>{ord?.description}</p>
                               </div>
                             </td>
+                            {console.log(elm)}
                             <td className={styles.center}>
-                              ${""}
+                              {elm?.currency_type
+                                ? elm?.currency_type?.includes("-")
+                                  ? elm?.currency_type?.split("-")[1]
+                                  : elm?.currency_type
+                                : "$"}{" "}
                               {Math.floor(ord?.rate * 100) / 100}
                             </td>
                             <td className={styles.center}>{ord?.quantity}</td>
-                            <td className={styles.center}>$ {ord?.amount}</td>
+                            <td className={styles.center}>
+                              {elm?.currency_type
+                                ? elm?.currency_type?.includes("-")
+                                  ? elm?.currency_type?.split("-")[1]
+                                  : elm?.currency_type
+                                : "$"}{" "}
+                              {ord?.amount}
+                            </td>
                           </tr>
                         ))}
                         <tr>
@@ -427,7 +439,11 @@ const InvoiceInternational = () => {
                             )}
                           </td>
                           <td className={styles.align_bold}>
-                            ${" "}
+                            {elm?.currency_type
+                              ? elm?.currency_type?.includes("-")
+                                ? elm?.currency_type?.split("-")[1]
+                                : elm?.currency_type
+                              : "$"}{" "}
                             {Number(
                               elm?.orders?.reduce(
                                 (acc, curr) => (acc += Number(curr?.amount)),
@@ -467,7 +483,12 @@ const InvoiceInternational = () => {
                                 className={styles.right}
                                 style={{ textAlign: "center" }}
                               >
-                                $ {elm?.total_amount}
+                                {elm?.currency_type
+                                  ? elm?.currency_type?.includes("-")
+                                    ? elm?.currency_type?.split("-")[1]
+                                    : elm?.currency_type
+                                  : "$"}{" "}
+                                {elm?.total_amount}
                               </td>
                             </tr>
                             <tr>
@@ -479,7 +500,12 @@ const InvoiceInternational = () => {
                                 className={styles.right_bold}
                                 style={{ textAlign: "center" }}
                               >
-                                $ {elm?.total_amount}
+                                {elm?.currency_type
+                                  ? elm?.currency_type?.includes("-")
+                                    ? elm?.currency_type?.split("-")[1]
+                                    : elm?.currency_type
+                                  : "$"}{" "}
+                                {elm?.total_amount}
                               </td>
                             </tr>
                             <tr>
@@ -491,7 +517,12 @@ const InvoiceInternational = () => {
                                   {toWords.convert(
                                     elm?.total_amount ? elm?.total_amount : 0
                                   )}{" "}
-                                  Dollars Only
+                                  {elm?.currency_type
+                                    ? elm?.currency_type?.includes("-")
+                                      ? elm?.currency_type?.split("-")[0]
+                                      : elm?.currency_type
+                                    : "$"}{" "}
+                                  Only
                                 </span>
                               </td>
                             </tr>
@@ -672,11 +703,25 @@ const InvoiceInternational = () => {
                   <div className={styles.paymentDetailsInnerContainer}>
                     <span>
                       <p>Invoiced on {elm?.invoice_date}</p>
-                      <p>USD {elm?.total_amount} </p>
+                      <p>
+                        {elm?.currency_type
+                          ? elm?.currency_type?.includes("-")
+                            ? elm?.currency_type?.split("-")[0]
+                            : elm?.currency_type
+                          : "$"}{" "}
+                        {elm?.total_amount}{" "}
+                      </p>
                     </span>
                     <span>
                       <p>Balance Receivable</p>
-                      <p>USD {elm?.total_amount}</p>
+                      <p>
+                        {elm?.currency_type
+                          ? elm?.currency_type?.includes("-")
+                            ? elm?.currency_type?.split("-")[0]
+                            : elm?.currency_type
+                          : "$"}{" "}
+                        {elm?.total_amount}
+                      </p>
                     </span>
                   </div>
                 </section>
@@ -684,7 +729,14 @@ const InvoiceInternational = () => {
                   <h3>Currency Rates</h3>
                   <div className={styles.paymentDetailsInnerContainer}>
                     <span>
-                      <p>1 {elm?.currency_type}</p>
+                      <p>
+                        1{" "}
+                        {elm?.currency_type
+                          ? elm?.currency_type?.includes("-")
+                            ? elm?.currency_type?.split("-")[0]
+                            : elm?.currency_type
+                          : "$"}
+                      </p>
                       <p>
                         INR{" "}
                         {elm?.current_USD_price ? elm?.current_USD_price : "-"}{" "}

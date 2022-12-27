@@ -415,8 +415,13 @@ const Invoice = () => {
                               <p>
                                 <span>
                                   {data?.currency_type
-                                    ? data?.currency_type
+                                    ? data?.currency_type?.includes("-")
+                                      ? data?.currency_type?.split("-")[0]
+                                      : data?.currency_type
                                     : "INR"}
+                                  {/* {data?.currency_type
+                                    ? data?.currency_type
+                                    : "INR"} */}
                                 </span>
                                 <span>
                                   {" "}
