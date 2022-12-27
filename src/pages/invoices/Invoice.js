@@ -440,7 +440,9 @@ const Invoice = () => {
                             <td className={styles.warning}>
                               <Link to={encryptText(data?.invoice_number)}>
                                 {data?.currency_type
-                                  ? data?.currency_type
+                                  ? data?.currency_type?.includes("-")
+                                    ? data?.currency_type?.split("-")[0]
+                                    : data?.currency_type
                                   : "INR"}{" "}
                                 {data?.total_amount}{" "}
                                 {data?.payment_status === "paid"
@@ -455,7 +457,6 @@ const Invoice = () => {
                                 ? `${data?.currency_type} ${data?.total_amount} not paid`
                                 : "INR"} */}
                               </Link>
-
                               {data?.payment_status === "paid" ? (
                                 ""
                               ) : (
@@ -495,7 +496,9 @@ const Invoice = () => {
                               <p>
                                 <span>
                                   {data?.currency_type
-                                    ? data?.currency_type
+                                    ? data?.currency_type?.includes("-")
+                                      ? data?.currency_type?.split("-")[0]
+                                      : data?.currency_type
                                     : "INR"}{" "}
                                   {data?.received_amount
                                     ? data?.received_amount
