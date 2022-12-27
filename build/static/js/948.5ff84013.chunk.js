@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkinvoive=self.webpackChunkinvoive||[]).push([[948],{948:function(e,n,i){var p;i(2791);!function(e){e.event="event",e.props="prop"}(p||(p={}))}}]);
-//# sourceMappingURL=948.5ff84013.chunk.js.map
