@@ -132,13 +132,21 @@ const InternationalInvoice = () => {
   );
   const gettingBiggerNum = (arr) => {
     let invoiceNumbersArr = [];
-    arr.forEach((element) => {
-      let prevSplit = element?.invoice_number?.split("-");
-      invoiceNumbersArr.push(prevSplit[prevSplit.length - 1]);
-    });
+    arr
+      ?.filter(
+        (data) =>
+          new Date(data?.invoice_date)?.getFullYear() ==
+          new Date().getFullYear()
+      )
+      .forEach((element) => {
+        let prevSplit = element?.invoice_number?.split("-");
+        invoiceNumbersArr.push(prevSplit[prevSplit.length - 1]);
+      });
     let biggerNumber = invoiceNumbersArr.sort((a, b) => a - b);
 
-    return Number(biggerNumber[biggerNumber?.length - 1]) + 1;
+    return biggerNumber.length
+      ? Number(biggerNumber[biggerNumber?.length - 1]) + 1
+      : 1;
     // return invoiceNumbersArr;
   };
   let newPreviousInvoiceNumber = gettingBiggerNum(invoice);

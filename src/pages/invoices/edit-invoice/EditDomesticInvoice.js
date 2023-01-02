@@ -254,8 +254,9 @@ const EditDomesticInvoice = () => {
   }, [allInvoicesData]);
 
   const createInvoiceNumber = (invoice) => {
-    let prevInvoiceNumber =
-      Number(invoice[0]?.invoice_number?.split("-")[1]) + 1;
+    let prevInvoiceNumber = invoice?.length
+      ? Number(invoice[0]?.invoice_number?.split("-")[1]) + 1
+      : 1;
     return prevInvoiceNumber;
   };
   // const handleCompanyChange = (e) => {
@@ -299,7 +300,10 @@ const EditDomesticInvoice = () => {
       (comData) => comData?.company_id == e.target.value
     );
     let selectedCompanyInvoices = allInvoicesData?.filter(
-      (invData) => invData?.company_id == selectedCompany[0]?.company_id
+      (invData) =>
+        invData?.company_id == selectedCompany[0]?.company_id &&
+        new Date(invData?.invoice_date)?.getFullYear() ==
+          new Date().getFullYear()
     );
     let flag = false;
     selectedCompanyInvoices?.forEach((invoice) => {
