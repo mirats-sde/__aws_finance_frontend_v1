@@ -30,8 +30,9 @@ const InternationalInvoice = () => {
   const [invoiceData, setInvoiceData] = useState({
     total_amount: 0,
     adjusted_amount: 0,
-    currency_type: "USD",
+    currency_type: "INR-₹",
     status: "active",
+    invoice_type: "international",
     payment_status: "unpaid",
   });
   const navigate = useNavigate();
@@ -208,6 +209,7 @@ const InternationalInvoice = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <>
       <Header />
@@ -306,7 +308,7 @@ const InternationalInvoice = () => {
                               elm?.company_id == invoiceData?.company_id
                           )
                           ?.map((add, i) => (
-                            <React.Fragment>
+                            <>
                               <p>{add?.address?.street1}</p>
                               <p>{add?.address?.street2}</p>
                               <p>
@@ -319,7 +321,7 @@ const InternationalInvoice = () => {
                               <p className={styles.gstin}>
                                 GSTIN: {add?.tax_id_no}
                               </p>
-                            </React.Fragment>
+                            </>
                           ))
                       ) : (
                         <p className={styles.errorMsg}>select a company</p>
@@ -383,7 +385,7 @@ const InternationalInvoice = () => {
                       <span>{invoiceData?.currency_type}</span>
                     </section>
 
-                    {invoiceData?.currency_type === "INR" ? (
+                    {invoiceData?.currency_type === "INR-₹" ? (
                       ""
                     ) : (
                       <section
@@ -435,7 +437,7 @@ const InternationalInvoice = () => {
                           elm?.customer_id == invoiceData?.customer_id
                       )
                       ?.map((add, i) => (
-                        <React.Fragment>
+                        <>
                           <p>{add?.company_name}</p>
                           <p>{add?.customer_name}</p>
                           <p className={styles.gstin}>
@@ -446,7 +448,7 @@ const InternationalInvoice = () => {
                           <p className={styles.gstin}>
                             GSTIN: {add?.tax_id_number}
                           </p>
-                        </React.Fragment>
+                        </>
                       ))}
                   </div>
                   <div className={styles.billingAddress}>
@@ -457,7 +459,7 @@ const InternationalInvoice = () => {
                           elm?.customer_id == invoiceData?.customer_id
                       )
                       ?.map((add, i) => (
-                        <React.Fragment>
+                        <>
                           <p>{add?.billing_address?.street1}</p>
                           <p>{add?.billing_address?.street2}</p>
                           <p>
@@ -469,7 +471,7 @@ const InternationalInvoice = () => {
                             {add?.billing_address?.city},{" "}
                             {add?.billing_address?.country}
                           </p>
-                        </React.Fragment>
+                        </>
                       ))}
                   </div>
                 </section>

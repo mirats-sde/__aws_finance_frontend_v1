@@ -84,7 +84,7 @@ const InvoiceIndia = () => {
   const toWords = new ToWords({
     localeCode: "en-IN",
     converterOptions: {
-      currency: true,
+      // currency: true,
       ignoreDecimal: false,
       ignoreZeroCurrency: false,
       doNotAddOnly: false,
@@ -245,7 +245,6 @@ const InvoiceIndia = () => {
               <div ref={printRef} className={styles.invoice_container}>
                 <section className={styles.logo}>
                   <img src={miratsLogo} alt="" />
-                  {console.log(elm)}
                 </section>
 
                 {/* address invoice */}
@@ -410,21 +409,33 @@ const InvoiceIndia = () => {
                           </td>
                           <td className={styles.center}>{ord?.gst}%</td>
                           <td className={styles.center}>
-                            ₹{/* {Number(ord?.rate)} */}
+                            {elm?.currency_type
+                              ? elm?.currency_type.split("-")[1]
+                              : "₹"}
+                            {/* {Number(ord?.rate)} */}
                             {Math.floor(ord?.rate * 100) / 100}
                           </td>
                           <td className={styles.center}>{ord?.quantity}</td>
                           <td className={styles.center}>
-                            {console.log(ord)}₹{ord?.taxable_amount?.toFixed(2)}
+                            {/* {console.log(ord)} */}{" "}
+                            {elm?.currency_type
+                              ? elm?.currency_type.split("-")[1]
+                              : "₹"}
+                            {ord?.taxable_amount?.toFixed(2)}
                           </td>
                           <td className={styles.center}>
-                            ₹
+                            {elm?.currency_type
+                              ? elm?.currency_type.split("-")[1]
+                              : "₹"}
                             {Number(
                               (ord?.taxable_amount * Number(ord?.gst)) / 100
                             )?.toFixed(2)}
                           </td>
                           <td className={styles.center}>
-                            ₹{Number(ord?.amount)?.toFixed(2)}
+                            {elm?.currency_type
+                              ? elm?.currency_type.split("-")[1]
+                              : "₹"}
+                            {Number(ord?.amount)?.toFixed(2)}
                           </td>
                         </tr>
                       ))}
@@ -441,7 +452,9 @@ const InvoiceIndia = () => {
                         </td>
                         {/* txt amount */}
                         <td className={styles.align_bold}>
-                          ₹
+                          {elm?.currency_type
+                            ? elm?.currency_type.split("-")[1]
+                            : "₹"}
                           {/* {Number(
                             elm?.orders?.reduce(
                               (acc, cur) => (acc = acc + cur?.taxable_amount),
@@ -452,7 +465,9 @@ const InvoiceIndia = () => {
                         </td>
                         {/* gst amt */}
                         <td className={styles.align_bold}>
-                          ₹
+                          {elm?.currency_type
+                            ? elm?.currency_type.split("-")[1]
+                            : "₹"}
                           {Number(
                             elm?.orders?.reduce(
                               (acc, cur) =>
@@ -466,7 +481,9 @@ const InvoiceIndia = () => {
                         </td>
                         {/* total amt */}
                         <td className={styles.align_bold}>
-                          ₹
+                          {elm?.currency_type
+                            ? elm?.currency_type.split("-")[1]
+                            : "₹"}
                           {Number(
                             elm?.orders?.reduce(
                               (acc, curr) => (acc = acc + Number(curr?.amount)),
@@ -504,7 +521,10 @@ const InvoiceIndia = () => {
                               className={styles.right}
                               style={{ textAlign: "center" }}
                             >
-                              ₹{Number(elm?.taxable_amount)?.toFixed(2)}
+                              {elm?.currency_type
+                                ? elm?.currency_type.split("-")[1]
+                                : "₹"}
+                              {Number(elm?.taxable_amount)?.toFixed(2)}
                             </td>
                           </tr>
                           <tr>
@@ -533,10 +553,16 @@ const InvoiceIndia = () => {
                                             styles.align_bold_underline
                                           }
                                         >
-                                          ₹{Number(elm?.CGST)?.toFixed(2)}
+                                          {elm?.currency_type
+                                            ? elm?.currency_type.split("-")[1]
+                                            : "₹"}
+                                          {Number(elm?.CGST)?.toFixed(2)}
                                         </p>
                                         <p className={styles.align_bold}>
-                                          ₹{Number(elm?.SGST)?.toFixed(2)}
+                                          {elm?.currency_type
+                                            ? elm?.currency_type.split("-")[1]
+                                            : "₹"}
+                                          {Number(elm?.SGST)?.toFixed(2)}
                                         </p>
                                       </div>
                                     </td>
@@ -545,7 +571,10 @@ const InvoiceIndia = () => {
                                   <>
                                     <td colSpan={5}>IGST Total 18%</td>
                                     <td className={styles.align_bold}>
-                                      ₹{Number(elm?.IGST)?.toFixed(2)}
+                                      {elm?.currency_type
+                                        ? elm?.currency_type.split("-")[1]
+                                        : "₹"}
+                                      {Number(elm?.IGST)?.toFixed(2)}
                                     </td>
                                   </>
                                 )
@@ -556,7 +585,10 @@ const InvoiceIndia = () => {
                             <td>{custData?.bank_detail?.bank_name}</td>
                             <td colSpan={5}>Grand Total</td>
                             <td className={styles.right_bold}>
-                              ₹{Number(elm?.total_amount)?.toFixed(2)}
+                              {elm?.currency_type
+                                ? elm?.currency_type.split("-")[1]
+                                : "₹"}
+                              {Number(elm?.total_amount)?.toFixed(2)}
                             </td>
                           </tr>
                           <tr>
@@ -569,6 +601,10 @@ const InvoiceIndia = () => {
                                 {toWords.convert(
                                   elm?.total_amount ? elm?.total_amount : 0
                                 )}{" "}
+                                {elm?.currency_type
+                                  ? elm?.currency_type.split("-")[0]
+                                  : "INR"}{" "}
+                                Only
                               </span>
                             </td>
                           </tr>
@@ -698,11 +734,22 @@ const InvoiceIndia = () => {
               <div className={styles.paymentDetailsInnerContainer}>
                 <span>
                   <p>Invoiced on {elm?.invoice_date}</p>
-                  <p>INR {elm?.total_amount} </p>
+                  <p>
+                    {" "}
+                    {elm?.currency_type
+                      ? elm?.currency_type.split("-")[0]
+                      : "₹"}{" "}
+                    {elm?.total_amount}{" "}
+                  </p>
                 </span>
                 <span>
-                  <p>Balance Receivable</p>
-                  <p>INR {elm?.total_amount}</p>
+                  <p>Balance Receivable (INR)</p>
+                  <p>
+                    {"₹ "}
+                    {elm?.current_USD_price
+                      ? elm?.total_amount * elm?.current_USD_price
+                      : elm?.total_amount}
+                  </p>
                 </span>
               </div>
             </div>

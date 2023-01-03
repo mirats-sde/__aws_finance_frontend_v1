@@ -172,7 +172,6 @@ const InvoiceInternational = () => {
 
   return (
     <>
-      {console.log("i am from console.")}
       <Header />
       {allInvoicesData?.length ? (
         allInvoicesData

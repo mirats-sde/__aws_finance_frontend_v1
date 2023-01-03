@@ -38,7 +38,7 @@ const InvoiceLink = () => {
             : inv?.invoice_number === decryptText(invoiceNumber)
         )
         ?.map((data, ind) => {
-          return data?.currency_type ? (
+          return data?.invoice_type === "international" ? (
             <InternationalInvoice />
           ) : (
             <IndianInvoice />

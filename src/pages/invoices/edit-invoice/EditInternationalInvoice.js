@@ -187,6 +187,7 @@ const EditInternationalInvoice = () => {
           new Date().getFullYear()
     );
     let flag = false;
+    console.log(flag);
     selectedCompanyInvoices?.forEach((invoice) => {
       if (invoice.invoice_number == invoiceNumber) {
         setInvoiceData((prev) => {

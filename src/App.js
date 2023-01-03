@@ -248,7 +248,7 @@ function App() {
                       <InvoiceContextProvider>
                         <DomesticInvoice />
                       </InvoiceContextProvider>
-                    </CustomerContextProvider>{" "}
+                    </CustomerContextProvider>
                   </ProtectedRoute>
                 }
               />

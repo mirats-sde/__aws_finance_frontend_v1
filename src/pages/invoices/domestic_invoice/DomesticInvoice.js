@@ -36,6 +36,8 @@ const DomesticInvoice = () => {
     status: "active",
     total_amount: 0,
     adjusted_amount: 0,
+    currency_type: "INR-₹",
+    invoice_type: "domestic",
     payment_status: "unpaid",
   });
 
@@ -135,6 +137,7 @@ const DomesticInvoice = () => {
   };
 
   const handleChangeInput = (e) => {
+    // console.log(e.target);
     setInvoiceData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -230,10 +233,9 @@ const DomesticInvoice = () => {
     allInvoicesData,
     invoiceData?.company_id,
   ]);
-  console.log(company && invoice ? "fix" : "err");
-  console.log(company);
+  console.log("this is invoice Da", invoiceData);
   // dropdown
-  console.log(invoiceData);
+  // console.log(invoiceData);
   console.log(invoice);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -347,8 +349,7 @@ const DomesticInvoice = () => {
                               elm?.company_id == invoiceData?.company_id
                           )
                           ?.map((add, i) => (
-                            <React.Fragment>
-                              {console.log(add)}
+                            <>
                               <p>{add?.address?.street1}</p>
                               <p>{add?.address?.street2}</p>
                               <p>
@@ -361,7 +362,7 @@ const DomesticInvoice = () => {
                               <p className={styles.gstin}>
                                 GSTIN: {add?.tax_id_no}
                               </p>
-                            </React.Fragment>
+                            </>
                           ))
                       ) : (
                         <p className={styles.errorMsg}>select a company</p>
@@ -408,6 +409,40 @@ const DomesticInvoice = () => {
                       />
                       <span>Due Date</span>
                     </section>
+                    <section
+                      className={styles.date}
+                      onChange={handleChangeInput}
+                    >
+                      <select
+                        name="currency_type"
+                        value={invoiceData?.currency_type}
+                        id=""
+                        required
+                      >
+                        <option value="INR-₹">INR</option>
+                        <option value="USD-$">USD</option>
+                        <option value="EUR-€">EUR</option>
+                        <option value="POUND-£">POUND</option>
+                      </select>
+                      <span>{invoiceData?.currency_type}</span>
+                    </section>
+
+                    {invoiceData?.currency_type === "INR-₹" ? (
+                      ""
+                    ) : (
+                      <section
+                        className={styles.date}
+                        onChange={handleChangeInput}
+                      >
+                        <input
+                          type="text"
+                          required
+                          name="current_USD_price"
+                          onChange={handleChangeInput}
+                        />
+                        <span>Enter Current {invoiceData?.currency_type}</span>
+                      </section>
+                    )}
                   </div>
                 </div>
               </div>
@@ -421,7 +456,13 @@ const DomesticInvoice = () => {
                       name="customer_id"
                       required
                       id="customer_id"
-                      onChange={handleChangeInput}
+                      // onChange={handleChangeInput}
+                      onChange={(e) =>
+                        setInvoiceData((prev) => ({
+                          ...prev,
+                          [e.target.name]: e.target.value,
+                        }))
+                      }
                     >
                       <option value="" selected>
                         Select Customer
@@ -442,17 +483,16 @@ const DomesticInvoice = () => {
                           elm?.customer_id == invoiceData?.customer_id
                       )
                       ?.map((add, i) => (
-                        <React.Fragment>
+                        <>
                           <p>{add?.company_name}</p>
                           <p>{add?.customer_name}</p>
                           <p className={styles.gstin}>
-                            {console.log(add)}
                             POS: {add?.billing_address?.place_of_supply}
                           </p>
                           <p className={styles.gstin}>
                             GSTIN: {add?.tax_id_number}
                           </p>
-                        </React.Fragment>
+                        </>
                       ))}
                   </div>
                   <div className={styles.billingAddress}>
@@ -463,7 +503,7 @@ const DomesticInvoice = () => {
                           elm?.customer_id == invoiceData?.customer_id
                       )
                       ?.map((add, i) => (
-                        <React.Fragment>
+                        <>
                           <p>{add?.billing_address?.street1}</p>
                           <p>{add?.billing_address?.street2}</p>
                           <p>
@@ -480,7 +520,7 @@ const DomesticInvoice = () => {
                               : `${add?.billing_address?.place_of_supply},`}
                             {add?.billing_address?.country}
                           </p>
-                        </React.Fragment>
+                        </>
                       ))}
                   </div>
                 </section>
