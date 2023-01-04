@@ -447,12 +447,7 @@ const InvoiceInternational = () => {
                               elm?.orders?.reduce(
                                 (acc, curr) => (acc += Number(curr?.amount)),
                                 0
-                              ) +
-                                Number(
-                                  elm?.adjusted_amount
-                                    ? elm?.adjusted_amount
-                                    : 0
-                                )
+                              )
                             )?.toFixed(2)}
                           </td>
                         </tr>
@@ -477,17 +472,56 @@ const InvoiceInternational = () => {
                                   }`}
                                 </a>
                               </td>
-                              <td colSpan={2}>Sub Total</td>
+                              <td colSpan={2}>
+                                <div>
+                                  <p>Sub Total</p>
+                                  {elm?.adjusted_amount !== 0 && (
+                                    <p
+                                      style={{
+                                        marginTop: "0.5em",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      Adjusted Amount
+                                    </p>
+                                  )}
+                                </div>
+                              </td>
                               <td
                                 className={styles.right}
-                                style={{ textAlign: "center" }}
+                                style={{
+                                  textAlign: "center",
+                                }}
                               >
-                                {elm?.currency_type
-                                  ? elm?.currency_type?.includes("-")
-                                    ? elm?.currency_type?.split("-")[1]
-                                    : elm?.currency_type
-                                  : "$"}{" "}
-                                {elm?.total_amount}
+                                <div>
+                                  <p>
+                                    {elm?.currency_type
+                                      ? elm?.currency_type?.includes("-")
+                                        ? elm?.currency_type?.split("-")[1]
+                                        : elm?.currency_type
+                                      : "$"}{" "}
+                                    {elm?.adjusted_amount < 0
+                                      ? elm?.total_amount - elm?.adjusted_amount
+                                      : elm?.total_amount +
+                                        elm?.adjusted_amount}
+                                  </p>
+                                  {elm?.adjusted_amount !== 0 && (
+                                    <p
+                                      style={{
+                                        marginTop: "0.5em",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      {/* -1000 */}
+                                      {elm?.currency_type
+                                        ? elm?.currency_type?.includes("-")
+                                          ? elm?.currency_type?.split("-")[1]
+                                          : elm?.currency_type
+                                        : "$"}{" "}
+                                      {elm?.adjusted_amount}
+                                    </p>
+                                  )}
+                                </div>
                               </td>
                             </tr>
                             <tr>
