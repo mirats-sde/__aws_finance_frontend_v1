@@ -342,7 +342,7 @@ const InvoiceInternational = () => {
                         <section className={styles.customer}>
                           <h4>Customer Name</h4>
                           {/* {invoiceData?.customerData?.slice(0, 1).map((elm, ind) => ( */}
-                          {console.log(custData)}
+                          {/* {console.log(custData)} */}
 
                           <p>{custData?.company_name}</p>
                           {/* <p>{custData?.customer_name}</p> */}
@@ -407,7 +407,7 @@ const InvoiceInternational = () => {
                                 <p>{ord?.description}</p>
                               </div>
                             </td>
-                            {console.log(elm)}
+                            {/* {console.log(elm)} */}
                             <td className={styles.center}>
                               {elm?.currency_type
                                 ? elm?.currency_type?.includes("-")

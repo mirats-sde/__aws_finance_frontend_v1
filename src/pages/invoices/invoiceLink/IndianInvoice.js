@@ -336,15 +336,48 @@ const IndianInvoice = () => {
                               }`}
                             </a>
                           </td>
-                          <td colSpan={5}>Sub Total</td>
+                          <td colSpan={5}>
+                            <div>
+                              <p>Sub Total</p>
+                              {elm?.adjusted_amount !== 0 && (
+                                <p
+                                  style={{
+                                    marginTop: "0.5em",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  Adjustment Amount
+                                </p>
+                              )}
+                            </div>
+                          </td>
                           <td
                             className={styles.right}
                             style={{ textAlign: "center" }}
                           >
-                            {elm?.currency_type
-                              ? elm?.currency_type.split("-")[1]
-                              : "₹"}
-                            {Number(elm?.taxable_amount)?.toFixed(2)}
+                            <div>
+                              <p>
+                                {elm?.currency_type
+                                  ? elm?.currency_type.split("-")[1]
+                                  : "₹"}
+                                {Number(elm?.taxable_amount)?.toFixed(2)}
+                              </p>
+                              {elm?.adjusted_amount !== 0 && (
+                                <p
+                                  style={{
+                                    marginTop: "0.5em",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  {elm?.currency_type
+                                    ? elm?.currency_type?.includes("-")
+                                      ? elm?.currency_type?.split("-")[1]
+                                      : elm?.currency_type
+                                    : "₹"}{" "}
+                                  {elm?.adjusted_amount}
+                                </p>
+                              )}
+                            </div>
                           </td>
                         </tr>
                         <tr>
