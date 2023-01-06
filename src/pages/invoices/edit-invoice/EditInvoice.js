@@ -22,7 +22,7 @@ const EditInvoice = () => {
   return (
     <>
       <Header />
-      {invoice[0]?.currency_type ? (
+      {invoice[0]?.invoice_type === "international" ? (
         <EditInternationalInvoice />
       ) : (
         <EditDomesticInvoice />

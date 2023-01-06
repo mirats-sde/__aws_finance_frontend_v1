@@ -501,7 +501,7 @@ const EditInternationalInvoice = () => {
                       value={invoiceData?.customer_id}
                       onChange={handleChangeInput}
                     >
-                      {console.log(invoiceData)}
+                      {/* {console.log(invoiceData)} */}
                       <option value="" selected disabled>
                         Select Customer
                       </option>

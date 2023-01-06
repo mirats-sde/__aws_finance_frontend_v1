@@ -449,7 +449,7 @@ const EditDomesticInvoice = () => {
                           )
                           ?.map((add, i) => (
                             <React.Fragment>
-                              {console.log(add)}
+                              {/* {console.log(add)} */}
                               <p>{add?.address?.street1}</p>
                               <p>{add?.address?.street2}</p>
                               <p>
@@ -553,7 +553,7 @@ const EditDomesticInvoice = () => {
                           <p>{add?.company_name}</p>
                           <p>{add?.customer_name}</p>
                           <p className={styles.gstin}>
-                            {console.log(add)}
+                            {/* {console.log(add)} */}
                             POS: {add?.billing_address?.place_of_supply}
                           </p>
                           <p className={styles.gstin}>
@@ -885,7 +885,7 @@ const EditDomesticInvoice = () => {
                   </div>
                   <div className={styles.for_Signature}>
                     <p>For {currentCompany[0]?.company_name}</p>
-                    {console.log(invoiceData)}
+                    {/* {console.log(invoiceData)} */}
                     <section className={styles.signature}>
                       {selectSign && (
                         <img
